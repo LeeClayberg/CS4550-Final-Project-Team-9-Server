@@ -151,7 +151,7 @@ public class UserService {
         for (ComicBook comicBook : user.getComicBooks()) {
           if (comicBook.getId() == id) {
             user.removeComicBook(comicBook);
-            history.add(userId + " -- removed -- " + id);
+            history.add(0, userId + " -- removed -- " + id);
             return;
           }
         }
