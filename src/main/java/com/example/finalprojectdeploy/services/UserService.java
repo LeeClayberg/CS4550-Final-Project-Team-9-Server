@@ -47,7 +47,7 @@ public class UserService {
   @PostMapping("/api/users")
   public User createUser(@RequestBody User user) {
     users.add(user);
-    history.add(user.getId() + " -- created");
+    history.add(0, user.getId() + " -- created");
     return user;
   }
 
@@ -56,7 +56,7 @@ public class UserService {
     for(User user: users) {
       if(user.getId() == id) {
         user.updateUser(newUser);
-        history.add(id + " -- updated profile");
+        history.add(0, id + " -- updated profile");
         return user;
       }
     }
@@ -137,7 +137,7 @@ public class UserService {
     for(User user: users) {
       if (user.getId() == userId) {
         user.addComicBook(comicBook);
-        history.add(userId + " -- added -- " + comicBook.getId());
+        history.add(0, userId + " -- added -- " + comicBook.getId());
         return comicBook;
       }
     }
