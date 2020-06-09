@@ -78,7 +78,7 @@ public class UserService {
   //Login
 
   @CrossOrigin(origins = "http://localhost:3000")
-  @GetMapping("/api/users/login:{username}:{password}")
+  @GetMapping("/api/users/login/{username}/{password}")
   public User findUserById(@PathVariable("username") String username, @PathVariable("password") String password) {
     for(User user: users) {
       if(user.getUsername().equals(username) && user.getPassword().equals(password)) {
