@@ -15,14 +15,14 @@ public class User {
   private String address;
   private String city;
   private String state;
-  private int zip;
+  private String zip;
   private String bio;
   private String pictureURL;
   private String role;
   private String startDate;
   private List<ComicBook> comicBooks;
 
-  public User(int id, String username, String password, String first, String last, String email, String dob, String address, String city, String state, int zip, String bio, String role, String startDate) {
+  public User(int id, String username, String password, String first, String last, String email, String dob, String address, String city, String state, String zip, String bio, String role, String startDate) {
     this.id = id;
     this.username = username;
     this.password = password;
@@ -41,7 +41,7 @@ public class User {
     this.comicBooks = new ArrayList<ComicBook>();
   }
 
-  public User(String password, String first, String last, String email, String dob, String address, String city, String state, int zip, String bio) {
+  public User(String password, String first, String last, String email, String dob, String address, String city, String state, String zip, String bio) {
     this.password = password;
     this.first = first;
     this.last = last;
@@ -67,6 +67,7 @@ public class User {
 
   public User() {
     this.id = (int)(Math.random() * 1000000);
+    this.pictureURL = "https://lakewangaryschool.sa.edu.au/wp-content/uploads/2017/11/placeholder-profile-sq.jpg";
     this.comicBooks = new ArrayList<ComicBook>();
   }
 
@@ -164,11 +165,11 @@ public class User {
     this.state = state;
   }
 
-  public int getZip() {
+  public String getZip() {
     return zip;
   }
 
-  public void setZip(int zip) {
+  public void setZip(String zip) {
     this.zip = zip;
   }
 
