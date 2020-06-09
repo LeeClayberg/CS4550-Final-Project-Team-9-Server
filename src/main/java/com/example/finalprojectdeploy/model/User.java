@@ -71,8 +71,6 @@ public class User {
   }
 
   public void updateUser(User newUser) {
-    this.id = newUser.id;
-    this.username = newUser.username;
     this.password = newUser.password;
     this.first = newUser.first;
     this.last = newUser.last;
@@ -84,8 +82,6 @@ public class User {
     this.zip = newUser.zip;
     this.bio = newUser.bio;
     this.pictureURL = newUser.pictureURL;
-    this.role = newUser.role;
-    this.startDate = newUser.startDate;
   }
 
   public int getId() {
