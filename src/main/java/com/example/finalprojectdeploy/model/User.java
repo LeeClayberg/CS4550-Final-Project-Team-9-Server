@@ -41,8 +41,8 @@ public class User {
     this.comicBooks = new ArrayList<ComicBook>();
   }
 
-  public User(int id, String username, String password, String role, String startDate) {
-    this.id = id;
+  public User(String username, String password, String role, String startDate) {
+    this.id = (int)(Math.random() * 1000000);
     this.username = username;
     this.password = password;
     this.role = role;
@@ -51,6 +51,7 @@ public class User {
   }
 
   public User() {
+    this.id = (int)(Math.random() * 1000000);
     this.comicBooks = new ArrayList<ComicBook>();
   }
 

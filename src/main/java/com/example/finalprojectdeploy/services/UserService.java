@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 public class UserService {
-  User user1 = new User(123, "tom", "tmoney123", "admin", "2020-06-07");
+  User user1 = new User("tom", "tmoney123", "admin", "2020-06-07");
   public List<String> history = new ArrayList<String>();
   public List<User> users = new ArrayList<User>();
   {
