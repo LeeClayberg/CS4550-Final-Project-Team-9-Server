@@ -41,7 +41,6 @@ public class UserService {
     return null;
   }
 
-  @CrossOrigin(origins = "http://localhost:3000")
   @PostMapping("/api/users")
   public User createUser(@RequestBody User user) {
     users.add(user);
