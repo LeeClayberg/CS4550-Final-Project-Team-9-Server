@@ -1,0 +1,153 @@
+package com.example.finalprojectdeploy.model;
+
+import java.util.Comparator;
+
+public class ComicBook {
+  private int id;
+  private int issueId;
+  private int userId;
+  private double grade;
+  private String signatures;
+  private String coverImageURL;
+  private String coverDate;
+  private String timestamp;
+  private String title;
+  private String volume;
+  private String characters;
+
+  public ComicBook(int id, int issueId, int userId, double grade, String signatures, String coverImageURL, String coverDate, String timestamp, String title, String volume, String characters) {
+    this.id = id;
+    this.issueId = issueId;
+    this.userId = userId;
+    this.grade = grade;
+    this.signatures = signatures;
+    this.coverImageURL = coverImageURL;
+    this.coverDate = coverDate;
+    this.timestamp = timestamp;
+    this.title = title;
+    this.volume = volume;
+    this.characters = characters;
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public int getIssueId() {
+    return issueId;
+  }
+
+  public void setIssueId(int issueId) {
+    this.issueId = issueId;
+  }
+
+  public int getUserId() {
+    return userId;
+  }
+
+  public void setUserId(int userId) {
+    this.userId = userId;
+  }
+
+  public double getGrade() {
+    return grade;
+  }
+
+  public void setGrade(double grade) {
+    this.grade = grade;
+  }
+
+  public String getSignatures() {
+    return signatures;
+  }
+
+  public void setSignatures(String signatures) {
+    this.signatures = signatures;
+  }
+
+  public String getCoverImageURL() {
+    return coverImageURL;
+  }
+
+  public void setCoverImageURL(String coverImageURL) {
+    this.coverImageURL = coverImageURL;
+  }
+
+  public String getCoverDate() {
+    return coverDate;
+  }
+
+  public void setCoverDate(String coverDate) {
+    this.coverDate = coverDate;
+  }
+
+  public String getTimestamp() {
+    return timestamp;
+  }
+
+  public void setTimestamp(String timestamp) {
+    this.timestamp = timestamp;
+  }
+
+  public String getTitle() {
+    return title;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+  public String getVolume() {
+    return volume;
+  }
+
+  public void setVolume(String volume) {
+    this.volume = volume;
+  }
+
+  public String getCharacters() {
+    return characters;
+  }
+
+  public void setCharacters(String characters) {
+    this.characters = characters;
+  }
+
+  //Comparator
+
+  static class GradeComparator implements Comparator<ComicBook>
+  {
+    public int compare(ComicBook a, ComicBook b)
+    {
+      return (int)((a.grade - b.grade) * 10);
+    }
+  }
+
+  public static class CoverDateComparator implements Comparator<ComicBook>
+  {
+    public int compare(ComicBook a, ComicBook b)
+    {
+      return a.coverDate.compareTo(b.coverDate);
+    }
+  }
+
+  public static class DateAddedComparator implements Comparator<ComicBook>
+  {
+    public int compare(ComicBook a, ComicBook b)
+    {
+      return a.timestamp.compareTo(b.timestamp);
+    }
+  }
+
+  public static class TitleComparator implements Comparator<ComicBook>
+  {
+    public int compare(ComicBook a, ComicBook b)
+    {
+      return a.title.compareTo(b.title);
+    }
+  }
+}
