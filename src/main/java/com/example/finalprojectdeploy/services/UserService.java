@@ -158,4 +158,9 @@ public class UserService {
       }
     }
   }
+
+  @GetMapping("/api/users/history")
+  public List<String> findUserHistory() {
+    return history;
+  }
 }
