@@ -1,7 +1,5 @@
 package com.example.finalprojectdeploy.model;
 
-import com.example.finalprojectdeploy.model.ComicBook;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,6 +11,7 @@ public class User {
   private String first;
   private String last;
   private String email;
+  private String dob;
   private String address;
   private String city;
   private String state;
@@ -23,13 +22,14 @@ public class User {
   private String startDate;
   private List<ComicBook> comicBooks;
 
-  public User(int id, String username, String password, String first, String last, String email, String address, String city, String state, int zip, String bio, String pictureURL, String role, String startDate) {
+  public User(int id, String username, String password, String first, String last, String email, String dob, String address, String city, String state, int zip, String bio, String pictureURL, String role, String startDate) {
     this.id = id;
     this.username = username;
     this.password = password;
     this.first = first;
     this.last = last;
     this.email = email;
+    this.dob = dob;
     this.address = address;
     this.city = city;
     this.state = state;
@@ -62,6 +62,7 @@ public class User {
     this.first = newUser.first;
     this.last = newUser.last;
     this.email = newUser.email;
+    this.dob = newUser.dob;
     this.address = newUser.address;
     this.city = newUser.city;
     this.state = newUser.state;
@@ -118,6 +119,14 @@ public class User {
 
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  public String getDob() {
+    return dob;
+  }
+
+  public void setDob(String dob) {
+    this.dob = dob;
   }
 
   public String getAddress() {
