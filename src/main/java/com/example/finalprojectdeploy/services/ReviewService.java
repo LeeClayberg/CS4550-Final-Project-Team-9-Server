@@ -15,18 +15,17 @@ import java.util.Collections;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class ReviewService {
   List<Review> reviews = new ArrayList<Review>();
 
   //Basic Operations
 
-  @CrossOrigin(origins = "http://localhost:3000")
   @GetMapping("/api/reviews")
   public List<Review> findAllUsers() {
     return reviews;
   }
 
-  @CrossOrigin(origins = "http://localhost:3000")
   @GetMapping("/api/reviews/{reviewId}")
   public Review findReviewById(@PathVariable("reviewId") Integer id) {
     for(Review review: reviews) {
@@ -37,7 +36,6 @@ public class ReviewService {
     return null;
   }
 
-  @CrossOrigin(origins = "http://localhost:3000")
   @GetMapping("/api/user/{userId}/reviews")
   public List<Review> findReviewsForUser(@PathVariable("userId") Integer id) {
     List<Review> results = new ArrayList<>(reviews);
@@ -45,7 +43,6 @@ public class ReviewService {
     return results;
   }
 
-  @CrossOrigin(origins = "http://localhost:3000")
   @GetMapping("/api/issue/{issueId}/reviews")
   public List<Review> findReviewsForIssue(@PathVariable("issueId") Integer id) {
     List<Review> results = new ArrayList<>(reviews);
@@ -53,21 +50,18 @@ public class ReviewService {
     return results;
   }
 
-  @CrossOrigin(origins = "http://localhost:3000")
   @GetMapping("/api/reviews/recent")
   public List<Review> findRecentReviews() {
     Collections.sort(reviews, new Review.DateAddedComparator());
     return reviews.subList(0, 4);
   }
 
-  @CrossOrigin(origins = "http://localhost:3000")
   @PostMapping("/api/reviews")
   public Review createReview(@RequestBody Review review) {
     reviews.add(review);
     return review;
   }
 
-  @CrossOrigin(origins = "http://localhost:3000")
   @DeleteMapping("/api/reviews/{reviewId}")
   public void deleteReview(@PathVariable("reviewId") Integer id) {
     for(Review review: reviews) {
