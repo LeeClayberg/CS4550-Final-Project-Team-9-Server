@@ -26,11 +26,13 @@ public class UserService {
 
   //Basic Operations
 
+  @CrossOrigin(origins = "http://localhost:3000")
   @GetMapping("/api/users")
   public List<User> findAllUsers() {
     return users;
   }
 
+  @CrossOrigin(origins = "http://localhost:3000")
   @GetMapping("/api/users/{userId}")
   public User findUserById(@PathVariable("userId") Integer id) {
     for(User user: users) {
@@ -41,6 +43,7 @@ public class UserService {
     return null;
   }
 
+  @CrossOrigin(origins = "http://localhost:3000")
   @PostMapping("/api/users")
   public User createUser(@RequestBody User user) {
     users.add(user);
@@ -48,6 +51,7 @@ public class UserService {
     return user;
   }
 
+  @CrossOrigin(origins = "http://localhost:3000")
   @PutMapping("/api/users/{userId}")
   public User updateUser(@PathVariable("userId") Integer id, @RequestBody User newUser) {
     for(User user: users) {
@@ -60,6 +64,7 @@ public class UserService {
     return null;
   }
 
+  @CrossOrigin(origins = "http://localhost:3000")
   @DeleteMapping("/api/users/{userId}")
   public void deleteUser(@PathVariable("userId") Integer id) {
     for(User user: users) {
@@ -72,6 +77,7 @@ public class UserService {
 
   //Login
 
+  @CrossOrigin(origins = "http://localhost:3000")
   @GetMapping("/api/users/login:{username}:{password}")
   public User findUserById(@PathVariable("username") Integer username, @PathVariable("password") Integer password) {
     for(User user: users) {
@@ -84,6 +90,7 @@ public class UserService {
 
   //Comic Books Collection
 
+  @CrossOrigin(origins = "http://localhost:3000")
   @GetMapping("/api/users/{userId}/collection")
   public List<ComicBook> findComicBooksForUser(@PathVariable("userId") Integer id) {
     for(User user: users) {
@@ -94,6 +101,7 @@ public class UserService {
     return null;
   }
 
+  @CrossOrigin(origins = "http://localhost:3000")
   @GetMapping("/api/users/{userId}/collection&sort={sortBy}")
   public List<ComicBook> findComicBooksForUserSorted(@PathVariable("userId") Integer id, @PathVariable("sortBy") String sortBy) {
     for(User user: users) {
@@ -104,6 +112,7 @@ public class UserService {
     return null;
   }
 
+  @CrossOrigin(origins = "http://localhost:3000")
   @GetMapping("/api/users/{userId}/collection&sort={sortBy}&resource={resource}&search={query}")
   public List<ComicBook> findComicBooksForUserSortedSearch(@PathVariable("userId") Integer id, @PathVariable("sortBy") String sortBy,
                                                            @PathVariable("resource") String resource, @PathVariable("query") String query) {
@@ -115,6 +124,7 @@ public class UserService {
     return null;
   }
 
+  @CrossOrigin(origins = "http://localhost:3000")
   @GetMapping("/api/users/{userId}/collection/{comicBookId}")
   public ComicBook findComicBookById(@PathVariable("userId") Integer userId, @PathVariable("comicBookId") Integer id) {
     for(User user: users) {
@@ -129,6 +139,7 @@ public class UserService {
     return null;
   }
 
+  @CrossOrigin(origins = "http://localhost:3000")
   @PostMapping("/api/users/{userId}/collection")
   public ComicBook createComicBook(@PathVariable("userId") Integer userId, @RequestBody ComicBook comicBook) {
     for(User user: users) {
