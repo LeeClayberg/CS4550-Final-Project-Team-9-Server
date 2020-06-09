@@ -85,7 +85,7 @@ public class UserService {
         return user;
       }
     }
-    return {};
+    return null;
   }
 
   //Comic Books Collection
