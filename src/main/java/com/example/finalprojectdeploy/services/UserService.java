@@ -3,6 +3,7 @@ package com.example.finalprojectdeploy.services;
 import com.example.finalprojectdeploy.model.ComicBook;
 import com.example.finalprojectdeploy.model.User;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,6 +41,7 @@ public class UserService {
     return null;
   }
 
+  @CrossOrigin(origins = "http://localhost:3000")
   @PostMapping("/api/users")
   public User createUser(@RequestBody User user) {
     users.add(user);
