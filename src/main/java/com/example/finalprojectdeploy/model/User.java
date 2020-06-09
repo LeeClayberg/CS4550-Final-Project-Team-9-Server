@@ -41,6 +41,20 @@ public class User {
     this.comicBooks = new ArrayList<ComicBook>();
   }
 
+  public User(String password, String first, String last, String email, String dob, String address, String city, String state, int zip, String bio, String pictureURL) {
+    this.password = password;
+    this.first = first;
+    this.last = last;
+    this.email = email;
+    this.dob = dob;
+    this.address = address;
+    this.city = city;
+    this.state = state;
+    this.zip = zip;
+    this.bio = bio;
+    this.pictureURL = pictureURL;
+  }
+
   public User(String username, String password, String role, String startDate) {
     this.id = (int)(Math.random() * 1000000);
     this.username = username;
