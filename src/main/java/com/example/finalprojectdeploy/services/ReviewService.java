@@ -63,12 +63,13 @@ public class ReviewService {
   }
 
   @DeleteMapping("/api/reviews/{reviewId}")
-  public void deleteReview(@PathVariable("reviewId") Integer id) {
+  public List<Review> deleteReview(@PathVariable("reviewId") Integer id) {
     for(Review review: reviews) {
       if(review.getId() == id) {
         reviews.remove(review);
-        return;
+        break;
       }
     }
+    return reviews;
   }
 }

@@ -18,13 +18,17 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 public class UserService {
-  User user1 = new User("leeclayberg", "clayberg123", "admin", "Tues Jun 09 2020");
-  User user2 = new User("jeffbarner", "barns14", "collector", "Tues Jun 09 2020");
+  User user1 = new User("leeclayberg", "clayberg123", "admin", "2020-06-06");
+  User user2 = new User("jeffbarner", "barns14", "collector", "2020-06-07");
+  User user3 = new User("johnwigner", "wigner234", "collector", "2020-06-08");
+  User user4 = new User("mattsmith", "smith435", "collector", "2020-06-08");
   public List<String> history = new ArrayList<String>();
   public List<User> users = new ArrayList<User>();
   {
     users.add(user1);
     users.add(user2);
+    users.add(user3);
+    users.add(user4);
   }
 
   //Basic Operations
@@ -64,13 +68,14 @@ public class UserService {
   }
 
   @DeleteMapping("/api/users/{userId}")
-  public void deleteUser(@PathVariable("userId") Integer id) {
+  public List<User> deleteUser(@PathVariable("userId") Integer id) {
     for(User user: users) {
       if(user.getId() == id) {
         users.remove(user);
-        return;
+        break;
       }
     }
+    return users;
   }
 
   //Login
@@ -145,18 +150,19 @@ public class UserService {
   }
 
   @DeleteMapping("/api/users/{userId}/collection/{comicBookId}")
-  public void deleteComicBook(@PathVariable("userId") Integer userId, @PathVariable("comicBookId") Integer id) {
+  public List<ComicBook> deleteComicBook(@PathVariable("userId") Integer userId, @PathVariable("comicBookId") Integer id) {
     for (User user : users) {
       if (user.getId() == userId) {
         for (ComicBook comicBook : user.getComicBooks()) {
           if (comicBook.getId() == id) {
             user.removeComicBook(comicBook);
             history.add(0, userId + " -- removed -- " + id);
-            return;
+            return user.getComicBooks();
           }
         }
       }
     }
+    return null;
   }
 
   @GetMapping("/api/users/history")
