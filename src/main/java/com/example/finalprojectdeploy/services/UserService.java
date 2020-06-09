@@ -17,6 +17,7 @@ import java.util.List;
 @RestController
 public class UserService {
   User user1 = new User(123, "tom", "tmoney123", "admin", "2020-06-07");
+  public List<String> history = new ArrayList<String>();
   public List<User> users = new ArrayList<User>();
   {
     users.add(user1);
@@ -42,6 +43,7 @@ public class UserService {
   @PostMapping("/api/users")
   public User createUser(@RequestBody User user) {
     users.add(user);
+    history.add(user.getId() + " -- created");
     return user;
   }
 
@@ -50,6 +52,7 @@ public class UserService {
     for(User user: users) {
       if(user.getId() == id) {
         user.updateUser(newUser);
+        history.add(id + " -- updated profile");
         return user;
       }
     }
@@ -64,6 +67,18 @@ public class UserService {
         return;
       }
     }
+  }
+
+  //Login
+
+  @GetMapping("/api/users/login:{username}:{password}")
+  public User findUserById(@PathVariable("username") Integer username, @PathVariable("password") Integer password) {
+    for(User user: users) {
+      if(user.getUsername().equals(username) && user.getPassword().equals(password)) {
+        return user;
+      }
+    }
+    return null;
   }
 
   //Comic Books Collection
@@ -118,6 +133,7 @@ public class UserService {
     for(User user: users) {
       if (user.getId() == userId) {
         user.addComicBook(comicBook);
+        history.add(userId + " -- added -- " + comicBook.getId());
         return comicBook;
       }
     }
@@ -131,6 +147,7 @@ public class UserService {
         for (ComicBook comicBook : user.getComicBooks()) {
           if (comicBook.getId() == id) {
             user.removeComicBook(comicBook);
+            history.add(userId + " -- removed -- " + id);
             return;
           }
         }
