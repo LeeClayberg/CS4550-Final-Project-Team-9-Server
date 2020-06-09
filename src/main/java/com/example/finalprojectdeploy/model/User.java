@@ -61,6 +61,7 @@ public class User {
     this.password = password;
     this.role = role;
     this.startDate = startDate;
+    this.pictureURL = "https://lakewangaryschool.sa.edu.au/wp-content/uploads/2017/11/placeholder-profile-sq.jpg";
     this.comicBooks = new ArrayList<ComicBook>();
   }
 
