@@ -99,7 +99,7 @@ public class UserService {
                                                            @RequestParam("resource") String resource, @RequestParam("query") String query) {
     for(User user: users) {
       if(user.getId() == id) {
-        return user.getComicBooksAdvanced(sortBy, resource, query);
+        return user.getComicBooksAdvanced("", "", "");
       }
     }
     return null;
