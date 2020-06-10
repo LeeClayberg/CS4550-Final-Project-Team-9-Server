@@ -103,22 +103,22 @@ public class UserService {
     return null;
   }
 
-  @GetMapping("/api/users/{userId}/collection&sort={sortBy}")
-  public List<ComicBook> findComicBooksForUserSorted(@PathVariable("userId") Integer id, @PathVariable("sortBy") String sortBy) {
-    for(User user: users) {
-      if(user.getId() == id) {
-        return user.getComicBooks(sortBy);
-      }
-    }
-    return null;
-  }
-
   @GetMapping("/api/users/{userId}/collection&sort={sortBy}&resource={resource}&search={query}")
   public List<ComicBook> findComicBooksForUserSortedSearch(@PathVariable("userId") Integer id, @PathVariable("sortBy") String sortBy,
                                                            @PathVariable("resource") String resource, @PathVariable("query") String query) {
     for(User user: users) {
       if(user.getId() == id) {
         return user.getComicBooksSearch(sortBy, resource, query);
+      }
+    }
+    return null;
+  }
+
+  @GetMapping("/api/users/{userId}/collection&sort={sortBy}")
+  public List<ComicBook> findComicBooksForUserSorted(@PathVariable("userId") Integer id, @PathVariable("sortBy") String sortBy) {
+    for(User user: users) {
+      if(user.getId() == id) {
+        return user.getComicBooks(sortBy);
       }
     }
     return null;
