@@ -127,7 +127,7 @@ public class ComicBook {
   {
     public int compare(ComicBook a, ComicBook b)
     {
-      return (int)((a.grade - b.grade) * 10);
+      return (int)((b.grade - a.grade) * 10);
     }
   }
 
