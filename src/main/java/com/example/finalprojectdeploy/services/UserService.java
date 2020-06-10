@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 public class UserService {
@@ -95,11 +97,11 @@ public class UserService {
   //Comic Books Collection
 
   @GetMapping("/api/users/{userId}/collection")
-  public List<ComicBook> findComicBooksForUserSortedSearch(@PathVariable("userId") Integer id, @RequestParam("sortBy") String sortBy,
-                                                           @RequestParam("resource") String resource, @RequestParam("query") String query) {
+  public List<ComicBook> findComicBooksForUserSortedSearch(@PathVariable("userId") Integer id, @PathParam("sortBy") String sortBy,
+                                                           @PathParam("resource") String resource, @PathParam("query") String query) {
     for(User user: users) {
       if(user.getId() == id) {
-        return user.getComicBooksAdvanced("", "", "");
+        return user.getComicBooksAdvanced(sortBy, resource, query);
       }
     }
     return null;
