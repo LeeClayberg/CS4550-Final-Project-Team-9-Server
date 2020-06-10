@@ -225,7 +225,7 @@ public class User {
     this.comicBooks.remove(comicBook);
   }
 
-  public List<ComicBook> getComicBooks(String sortBy, String resource, String query) {
+  public List<ComicBook> getComicBooksAdvanced(String sortBy, String resource, String query) {
     switch (sortBy) {
       case "grade": Collections.sort(comicBooks, new ComicBook.GradeComparator());
         break;
