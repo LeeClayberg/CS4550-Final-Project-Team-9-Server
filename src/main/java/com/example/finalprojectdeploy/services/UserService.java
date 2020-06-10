@@ -97,11 +97,11 @@ public class UserService {
   //Comic Books Collection
 
   @GetMapping("/api/users/{userId}/collection")
-  public List<ComicBook> findComicBooksForUserSortedSearch(@PathVariable("userId") Integer id, @RequestParam(defaultValue = "") String sortBy,
-                                                           @RequestParam("resource") String resource, @RequestParam("search") String query) {
+  public List<ComicBook> findComicBooksForUserSortedSearch(@PathVariable("userId") Integer id, @RequestParam(defaultValue = "") String sort,
+                                                           @RequestParam(defaultValue = "") String resource, @RequestParam(defaultValue = "") String query) {
     for(User user: users) {
       if(user.getId() == id) {
-        return user.getComicBooksAdvanced(sortBy, resource, query);
+        return user.getComicBooksAdvanced(sort, resource, query);
       }
     }
     return null;
