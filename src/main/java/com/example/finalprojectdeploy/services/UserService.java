@@ -118,7 +118,7 @@ public class UserService {
                                                            @PathVariable("resource") String resource, @PathVariable("query") String query) {
     for(User user: users) {
       if(user.getId() == id) {
-        return user.getComicBooks(sortBy, resource, query);
+        return user.getComicBooksSearch(sortBy, resource, query);
       }
     }
     return null;

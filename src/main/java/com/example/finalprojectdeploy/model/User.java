@@ -239,7 +239,7 @@ public class User {
     return comicBooks;
   }
 
-  public List<ComicBook> getComicBooks(String sortBy, String resource, String query) {
+  public List<ComicBook> getComicBooksSearch(String sortBy, String resource, String query) {
     List<ComicBook> results = new ArrayList<>(this.getComicBooks(sortBy));
     switch (resource) {
       case "title": results.remove(0);
