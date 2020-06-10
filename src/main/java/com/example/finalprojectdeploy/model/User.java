@@ -225,7 +225,7 @@ public class User {
     this.comicBooks.remove(comicBook);
   }
 
-  public List<ComicBook> getComicBooks(String sortBy) {
+  public List<ComicBook> getComicBooks(String sortBy, String resource, String query) {
     switch (sortBy) {
       case "grade": Collections.sort(comicBooks, new ComicBook.GradeComparator());
         break;
@@ -236,11 +236,7 @@ public class User {
       case "title": Collections.sort(comicBooks, new ComicBook.TitleComparator());
         break;
     }
-    return comicBooks;
-  }
-
-  public List<ComicBook> getComicBooksSearch(String sortBy, String resource, String query) {
-    List<ComicBook> results = new ArrayList<>(this.getComicBooks(sortBy));
+    List<ComicBook> results = new ArrayList<>(this.comicBooks);
     switch (resource) {
       case "title": results.removeIf(comicBook -> !comicBook.getTitle().contains(query));
         break;
@@ -249,6 +245,6 @@ public class User {
       case "character": results.removeIf(comicBook -> !comicBook.getCharacters().contains(query));
         break;
     }
-    return new ArrayList<>();
+    return results;
   }
 }

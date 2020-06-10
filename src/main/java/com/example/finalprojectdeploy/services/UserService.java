@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -103,22 +104,12 @@ public class UserService {
     return null;
   }
 
-  @GetMapping("/api/users/{userId}/collection&sort={sortBy}&resource={resource}&search={query}")
-  public List<ComicBook> findComicBooksForUserSortedSearch(@PathVariable("userId") Integer id, @PathVariable("sortBy") String sortBy,
-                                                           @PathVariable("resource") String resource, @PathVariable("query") String query) {
+  @GetMapping("/api/users/{userId}/collection")
+  public List<ComicBook> findComicBooksForUserSortedSearch(@PathVariable("userId") Integer id, @RequestParam("sortBy") String sortBy,
+                                                           @RequestParam("resource") String resource, @RequestParam("query") String query) {
     for(User user: users) {
       if(user.getId() == id) {
-        return user.getComicBooksSearch(sortBy, resource, query);
-      }
-    }
-    return null;
-  }
-
-  @GetMapping("/api/users/{userId}/collection&sort={sortBy}")
-  public List<ComicBook> findComicBooksForUserSorted(@PathVariable("userId") Integer id, @PathVariable("sortBy") String sortBy) {
-    for(User user: users) {
-      if(user.getId() == id) {
-        return user.getComicBooks(sortBy);
+        return user.getComicBooks(sortBy, resource, query);
       }
     }
     return null;
