@@ -241,11 +241,11 @@ public class User {
 
   public List<ComicBook> getComicBooks(String sortBy, String resource, String query) {
     List<ComicBook> results = new ArrayList<>(this.getComicBooks(sortBy));
-    System.out.println(resource);
     switch (resource) {
-      case "title": results.removeIf(comicBook -> !comicBook.getTitle().contains(query));
+      case "title": results.remove(0);
         break;
-      case "volume": results.removeIf(comicBook -> !comicBook.getVolume().contains(query));
+      case "volume": results.remove(0);
+          results.remove(0);
         break;
       case "character": results.removeIf(comicBook -> !comicBook.getCharacters().contains(query));
         break;
@@ -253,3 +253,12 @@ public class User {
     return results;
   }
 }
+
+/*
+      case "title": results.removeIf(comicBook -> !comicBook.getTitle().contains(query));
+        break;
+      case "volume": results.removeIf(comicBook -> !comicBook.getVolume().contains(query));
+        break;
+      case "character": results.removeIf(comicBook -> !comicBook.getCharacters().contains(query));
+        break;
+ */
