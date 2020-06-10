@@ -242,23 +242,13 @@ public class User {
   public List<ComicBook> getComicBooksSearch(String sortBy, String resource, String query) {
     List<ComicBook> results = new ArrayList<>(this.getComicBooks(sortBy));
     switch (resource) {
-      case "title": results.remove(0);
-        break;
-      case "volume": results.remove(0);
-          results.remove(0);
-        break;
-      case "character": results.removeIf(comicBook -> !comicBook.getCharacters().contains(query));
-        break;
-    }
-    return results;
-  }
-}
-
-/*
       case "title": results.removeIf(comicBook -> !comicBook.getTitle().contains(query));
         break;
       case "volume": results.removeIf(comicBook -> !comicBook.getVolume().contains(query));
         break;
       case "character": results.removeIf(comicBook -> !comicBook.getCharacters().contains(query));
         break;
- */
+    }
+    return new ArrayList<>();
+  }
+}
