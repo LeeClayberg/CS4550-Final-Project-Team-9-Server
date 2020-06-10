@@ -238,11 +238,11 @@ public class User {
     }
     List<ComicBook> results = new ArrayList<>(this.comicBooks);
     switch (resource) {
-      case "title": results.removeIf(comicBook -> !comicBook.getTitle().contains(query));
+      case "title": results.removeIf(comicBook -> !comicBook.getTitle().toLowerCase().contains(query.toLowerCase()));
         break;
-      case "volume": results.removeIf(comicBook -> !comicBook.getVolume().contains(query));
+      case "volume": results.removeIf(comicBook -> !comicBook.getVolume().toLowerCase().contains(query.toLowerCase()));
         break;
-      case "character": results.removeIf(comicBook -> !comicBook.getCharacters().contains(query));
+      case "character": results.removeIf(comicBook -> !comicBook.getCharacters().toLowerCase().contains(query.toLowerCase()));
         break;
     }
     return results;
