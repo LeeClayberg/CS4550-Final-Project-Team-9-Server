@@ -15,8 +15,8 @@ public class ComicBook {
   private String volume;
   private String characters;
 
-  public ComicBook(int id, int issueId, int userId, double grade, String signatures, String coverImageURL, String coverDate, String timestamp, String title, String volume, String characters) {
-    this.id = id;
+  public ComicBook(int issueId, int userId, double grade, String signatures, String coverImageURL, String coverDate, String timestamp, String title, String volume, String characters) {
+    this.id = (int)(Math.random() * 1000000);
     this.issueId = issueId;
     this.userId = userId;
     this.grade = grade;
@@ -27,6 +27,10 @@ public class ComicBook {
     this.title = title;
     this.volume = volume;
     this.characters = characters;
+  }
+
+  public ComicBook() {
+    this.id = (int)(Math.random() * 1000000);
   }
 
   public int getId() {
