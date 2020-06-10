@@ -241,6 +241,7 @@ public class User {
 
   public List<ComicBook> getComicBooks(String sortBy, String resource, String query) {
     List<ComicBook> results = new ArrayList<>(this.getComicBooks(sortBy));
+    System.out.println(resource);
     switch (resource) {
       case "title": results.removeIf(comicBook -> !comicBook.getTitle().contains(query));
         break;
