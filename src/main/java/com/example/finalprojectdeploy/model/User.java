@@ -53,6 +53,7 @@ public class User {
     this.zip = zip;
     this.bio = bio;
     this.pictureURL = "https://lakewangaryschool.sa.edu.au/wp-content/uploads/2017/11/placeholder-profile-sq.jpg";
+    this.comicBooks = new ArrayList<ComicBook>();
   }
 
   public User(String username, String password, String role, String startDate) {
@@ -83,6 +84,7 @@ public class User {
     this.zip = newUser.zip;
     this.bio = newUser.bio;
     this.pictureURL = newUser.pictureURL;
+    this.role = newUser.role;
   }
 
   public int getId() {

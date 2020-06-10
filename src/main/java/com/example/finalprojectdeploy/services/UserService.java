@@ -72,6 +72,7 @@ public class UserService {
     for(User user: users) {
       if(user.getId() == id) {
         users.remove(user);
+        history.add(0, user.getId() + " -- removed");
         break;
       }
     }
