@@ -154,4 +154,12 @@ public class ComicBook {
       return a.title.compareTo(b.title);
     }
   }
+
+  public static class VolumeComparator implements Comparator<ComicBook>
+  {
+    public int compare(ComicBook a, ComicBook b)
+    {
+      return a.volume.compareTo(b.volume);
+    }
+  }
 }

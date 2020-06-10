@@ -235,6 +235,8 @@ public class User {
         break;
       case "title": Collections.sort(comicBooks, new ComicBook.TitleComparator());
         break;
+      case "volume": Collections.sort(comicBooks, new ComicBook.VolumeComparator());
+        break;
     }
     List<ComicBook> results = new ArrayList<>(this.comicBooks);
     switch (resource) {
