@@ -36,14 +36,14 @@ public class ReviewService {
     return null;
   }
 
-  @GetMapping("/api/user/{userId}/reviews")
+  @GetMapping("/api/users/{userId}/reviews")
   public List<Review> findReviewsForUser(@PathVariable("userId") Integer id) {
     List<Review> results = new ArrayList<>(reviews);
     results.removeIf(Review -> Review.getUserId() != id);
     return results;
   }
 
-  @GetMapping("/api/issue/{issueId}/reviews")
+  @GetMapping("/api/issues/{issueId}/reviews")
   public List<Review> findReviewsForIssue(@PathVariable("issueId") Integer id) {
     List<Review> results = new ArrayList<>(reviews);
     results.removeIf(Review -> Review.getIssueId() != id);

@@ -6,14 +6,18 @@ public class Review {
   private int id;
   private int issueId;
   private int userId;
+  private String username;
+  private int stars;
   private String text;
   private String coverImageURL;
   private String timestamp;
 
-  public Review(int issueId, int userId, String text, String coverImageURL, String timestamp) {
+  public Review(int issueId, int userId, String username, int stars, String text, String coverImageURL, String timestamp) {
     this.id = (int)(Math.random() * 1000000);
     this.issueId = issueId;
     this.userId = userId;
+    this.username = username;
+    this.stars = stars;
     this.text = text;
     this.coverImageURL = coverImageURL;
     this.timestamp = timestamp;
@@ -44,6 +48,22 @@ public class Review {
 
   public void setUserId(int userId) {
     this.userId = userId;
+  }
+
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public int getStars() {
+    return stars;
+  }
+
+  public void setStars(int stars) {
+    this.stars = stars;
   }
 
   public String getText() {
