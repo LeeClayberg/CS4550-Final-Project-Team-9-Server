@@ -10,8 +10,8 @@ public class Review {
   private String coverImageURL;
   private String timestamp;
 
-  public Review(int id, int issueId, int userId, String text, String coverImageURL, String timestamp) {
-    this.id = id;
+  public Review(int issueId, int userId, String text, String coverImageURL, String timestamp) {
+    this.id = (int)(Math.random() * 1000000);
     this.issueId = issueId;
     this.userId = userId;
     this.text = text;
