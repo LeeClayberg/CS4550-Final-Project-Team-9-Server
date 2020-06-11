@@ -58,7 +58,7 @@ public class ReviewService {
 
   @PostMapping("/api/reviews")
   public Review createReview(@RequestBody Review review) {
-    reviews.add(review);
+    reviews.add(0, review);
     return review;
   }
 
