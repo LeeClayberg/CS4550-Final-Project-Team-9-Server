@@ -24,6 +24,7 @@ public class Review {
   }
 
   public Review() {
+    this.id = (int)(Math.random() * 1000000);
   }
 
   public int getId() {
