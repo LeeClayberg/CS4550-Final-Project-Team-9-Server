@@ -53,7 +53,7 @@ public class ReviewService {
   @GetMapping("/api/reviews/recent")
   public List<Review> findRecentReviews() {
     Collections.sort(reviews, new Review.DateAddedComparator());
-    return reviews.subList(0, 4);
+    return reviews.size() > 4 ? reviews.subList(0, 4) : reviews;
   }
 
   @PostMapping("/api/reviews")

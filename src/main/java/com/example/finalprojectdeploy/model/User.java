@@ -42,6 +42,7 @@ public class User {
   }
 
   public User(String password, String first, String last, String email, String dob, String address, String city, String state, String zip, String bio) {
+    this.id = (int)(Math.random() * 1000000);
     this.password = password;
     this.first = first;
     this.last = last;
