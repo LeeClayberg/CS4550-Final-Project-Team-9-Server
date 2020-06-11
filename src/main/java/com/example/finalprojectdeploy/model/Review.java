@@ -95,7 +95,7 @@ public class Review {
   {
     public int compare(Review a, Review b)
     {
-      return a.timestamp.compareTo(b.timestamp);
+      return b.timestamp.compareTo(a.timestamp);
     }
   }
 }
