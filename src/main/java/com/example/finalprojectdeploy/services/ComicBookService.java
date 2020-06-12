@@ -5,22 +5,13 @@ import com.example.finalprojectdeploy.model.HistoryAction;
 import com.example.finalprojectdeploy.repositories.ComicBookRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@RestController
-@CrossOrigin(origins = "*")
+@Service
 public class ComicBookService {
 
   @Autowired
@@ -28,35 +19,29 @@ public class ComicBookService {
   @Autowired
   HistoryService historyService = new HistoryService();
 
-  //needs updating
-  @GetMapping("/api/users/{userId}/collection")
-  public List<ComicBook> findComicBooksForUserSortedSearch(@PathVariable("userId") Integer id, @RequestParam(defaultValue = "") String sort,
-                                                           @RequestParam(defaultValue = "") String resource, @RequestParam(defaultValue = "") String query) {
+
+  public List<ComicBook> findComicBooksForUserSortedSearch(Integer id, String sort, String resource, String query) {
     return this.getComicBooksAdvanced(comicBookRepository.findCollectionForUser(id), sort, resource, query);
   }
 
-  @GetMapping("/api/comic-books/{comicBookId}")
-  public ComicBook findComicBookById(@PathVariable("comicBookId") Integer id) {
+  public ComicBook findComicBookById(Integer id) {
     return comicBookRepository.findComicBookById(id);
   }
 
-  @PostMapping("/api/comic-books")
-  public ComicBook createComicBook(@RequestBody ComicBook comicBook) {
+  public ComicBook createComicBook(ComicBook comicBook) {
     historyService.createHistoryAction(new HistoryAction(comicBook.getUserId(), "added", comicBook.getIssueId()));
     return comicBookRepository.save(comicBook);
   }
 
   //Updates the comic book's grade (nothing else)
-  @PutMapping("/api/comic-books/{comicBookId}")
-  public ComicBook updateComicBook(@PathVariable("comicBookId") Integer id, @RequestBody ComicBook updatedComicBook) {
+  public ComicBook updateComicBook(Integer id, ComicBook updatedComicBook) {
     historyService.createHistoryAction(new HistoryAction(updatedComicBook.getUserId(), "updated", updatedComicBook.getIssueId()));
     ComicBook comicBook = comicBookRepository.findById(id).get();
     comicBook.updateComicBook(updatedComicBook);
     return comicBookRepository.save(comicBook);
   }
 
-  @DeleteMapping("/api/comic-books/{comicBookId}")
-  public void deleteComicBook(@PathVariable("comicBookId") Integer id) {
+  public void deleteComicBook(Integer id) {
     ComicBook beingDeleted = comicBookRepository.findComicBookById(id);
     historyService.createHistoryAction(new HistoryAction(beingDeleted.getUserId(), "removed", beingDeleted.getIssueId()));
     comicBookRepository.deleteById(id);
