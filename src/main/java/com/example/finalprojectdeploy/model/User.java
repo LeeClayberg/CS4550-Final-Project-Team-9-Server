@@ -46,7 +46,6 @@ public class User {
   }
 
   public User(String password, String first, String last, String email, String dob, String address, String city, String state, String zip, String bio) {
-    this.id = (int)(Math.random() * 1000000);
     this.password = password;
     this.first = first;
     this.last = last;
@@ -61,7 +60,6 @@ public class User {
   }
 
   public User(String username, String password, String role, String startDate) {
-    this.id = (int)(Math.random() * 1000000);
     this.username = username;
     this.password = password;
     this.role = role;
@@ -70,7 +68,6 @@ public class User {
   }
 
   public User() {
-    this.id = (int)(Math.random() * 1000000);
     this.pictureURL = "https://lakewangaryschool.sa.edu.au/wp-content/uploads/2017/11/placeholder-profile-sq.jpg";
   }
 

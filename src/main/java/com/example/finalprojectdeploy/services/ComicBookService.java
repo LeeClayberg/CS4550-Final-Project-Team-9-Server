@@ -1,7 +1,9 @@
 package com.example.finalprojectdeploy.services;
 
 import com.example.finalprojectdeploy.model.ComicBook;
+import com.example.finalprojectdeploy.repositories.ComicBookRepository;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,35 +12,38 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ComicBookService {
-  public List<ComicBook> comicBooks = new ArrayList<>();
+
+  @Autowired
+  ComicBookRepository comicBookRepository;
 
   @GetMapping("/api/users/{userId}/collection")
   public List<ComicBook> findComicBooksForUserSortedSearch(@PathVariable("userId") Integer id, @RequestParam(defaultValue = "") String sort,
                                                            @RequestParam(defaultValue = "") String resource, @RequestParam(defaultValue = "") String query) {
-    return null;
+    return comicBookRepository.findCollectionForUser(id);
   }
 
-  @GetMapping("/api/users/{userId}/collection/{comicBookId}")
-  public ComicBook findComicBookById(@PathVariable("userId") Integer userId, @PathVariable("comicBookId") Integer id) {
-    return null;
+  @GetMapping("/api/comic-books/{comicBookId}")
+  public ComicBook findComicBookById(@PathVariable("comicBookId") Integer id) {
+    return comicBookRepository.findComicBookById(id);
   }
 
-  @PostMapping("/api/users/{userId}/collection")
-  public ComicBook createComicBook(@PathVariable("userId") Integer userId, @RequestBody ComicBook comicBook) {
-    return null;
+  @PostMapping("/api/comic-books")
+  public ComicBook createComicBook(@RequestBody ComicBook comicBook) {
+    return comicBookRepository.save(comicBook);
   }
 
-  @PutMapping("/api/users/{userId}/collection/{comicBookId}")
-  public ComicBook updateComicBookGrade(@PathVariable("userId") Integer userId, @PathVariable("userId") Integer id, @RequestBody ComicBook updatedComicBook) {
-    return null;
+  @PutMapping("/api/comic-books/{comicBookId}")
+  public ComicBook updateComicBookGrade(@PathVariable("comicBookId") Integer id, @RequestBody ComicBook updatedComicBook) {
+    User user = userRepository.findById(id).get();
+    user.updateUser(newUser);
+    return userRepository.save(user);
   }
 
-  @DeleteMapping("/api/users/{userId}/collection/{comicBookId}")
-  public List<ComicBook> deleteComicBook(@PathVariable("userId") Integer userId, @PathVariable("comicBookId") Integer id) {
+  @DeleteMapping("/api/comic-books/{comicBookId}")
+  public List<ComicBook> deleteComicBook(@PathVariable("comicBookId") Integer id) {
     return null;
   }
 

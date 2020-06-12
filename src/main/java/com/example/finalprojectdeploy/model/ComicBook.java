@@ -2,7 +2,17 @@ package com.example.finalprojectdeploy.model;
 
 import java.util.Comparator;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="comic_books")
 public class ComicBook {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
   private int issueId;
   private int userId;
@@ -16,7 +26,6 @@ public class ComicBook {
   private String characters;
 
   public ComicBook(int issueId, int userId, double grade, String signatures, String coverImageURL, String coverDate, String timestamp, String title, String volume, String characters) {
-    this.id = (int)(Math.random() * 1000000);
     this.issueId = issueId;
     this.userId = userId;
     this.grade = grade;
@@ -30,7 +39,6 @@ public class ComicBook {
   }
 
   public ComicBook() {
-    this.id = (int)(Math.random() * 1000000);
   }
 
   public int getId() {

@@ -23,19 +23,6 @@ public class UserService {
   @Autowired
   UserRepository userRepository;
 
-  User user1 = new User("leeclayberg", "clayberg123", "admin", "2020-06-06");
-  User user2 = new User("jeffbarner", "barns14", "collector", "2020-06-07");
-  User user3 = new User("johnwigner", "wigner234", "collector", "2020-06-08");
-  User user4 = new User("mattsmith", "smith435", "collector", "2020-06-08");
-  public List<String> history = new ArrayList<String>();
-  public List<User> users = new ArrayList<User>();
-  {
-    users.add(user1);
-    users.add(user2);
-    users.add(user3);
-    users.add(user4);
-  }
-
   //Basic Operations
 
   @GetMapping("/api/users")
@@ -45,61 +32,39 @@ public class UserService {
 
   @GetMapping("/api/users/{userId}")
   public User findUserById(@PathVariable("userId") Integer id) {
-    for(User user: users) {
-      if(user.getId() == id) {
-        return user;
-      }
-    }
-    return null;
+    return userRepository.findUserById(id);
   }
 
   @PostMapping("/api/users")
   public User createUser(@RequestBody User user) {
-    users.add(user);
-    history.add(0, user.getId() + " -- created");
-    return user;
+    return userRepository.save(user);
   }
 
   @PutMapping("/api/users/{userId}")
   public User updateUser(@PathVariable("userId") Integer id, @RequestBody User newUser) {
-    for(User user: users) {
-      if(user.getId() == id) {
-        user.updateUser(newUser);
-        history.add(0, id + " -- updated profile");
-        return user;
-      }
-    }
-    return null;
+    User user = userRepository.findById(id).get();
+    user.updateUser(newUser);
+    return userRepository.save(user);
   }
 
   @DeleteMapping("/api/users/{userId}")
-  public List<User> deleteUser(@PathVariable("userId") Integer id) {
-    for(User user: users) {
-      if(user.getId() == id) {
-        users.remove(user);
-        history.add(0, user.getId() + " -- removed");
-        break;
-      }
-    }
-    return users;
+  public void deleteUser(@PathVariable("userId") Integer id) {
+    userRepository.deleteById(id);
   }
 
   //Login
 
   @GetMapping("/api/users/login/{username}/{password}")
   public User findUserById(@PathVariable("username") String username, @PathVariable("password") String password) {
-    for(User user: users) {
-      if(user.getUsername().equals(username) && user.getPassword().equals(password)) {
-        return user;
-      }
-    }
-    return null;
+    return userRepository.userLogin(username, password);
   }
 
-  //Comic Books Collection
+
+
+  //History (come back to)
 
   @GetMapping("/api/users/history")
   public List<String> findUserHistory() {
-    return history;
+    return new ArrayList<>();
   }
 }
