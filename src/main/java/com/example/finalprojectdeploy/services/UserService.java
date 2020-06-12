@@ -1,5 +1,6 @@
 package com.example.finalprojectdeploy.services;
 
+import com.example.finalprojectdeploy.model.HistoryAction;
 import com.example.finalprojectdeploy.model.User;
 import com.example.finalprojectdeploy.repositories.UserRepository;
 
@@ -16,12 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @RestController
 @CrossOrigin(origins = "*")
 public class UserService {
 
   @Autowired
   UserRepository userRepository;
+
+  HistoryService historyService = new HistoryService();
 
   //Basic Operations
 
@@ -37,11 +41,13 @@ public class UserService {
 
   @PostMapping("/api/users")
   public User createUser(@RequestBody User user) {
+    historyService.createHistoryAction(new HistoryAction(user.getId(), "created"));
     return userRepository.save(user);
   }
 
   @PutMapping("/api/users/{userId}")
   public User updateUser(@PathVariable("userId") Integer id, @RequestBody User newUser) {
+    historyService.createHistoryAction(new HistoryAction(id, "updated"));
     User user = userRepository.findById(id).get();
     user.updateUser(newUser);
     return userRepository.save(user);
@@ -49,6 +55,7 @@ public class UserService {
 
   @DeleteMapping("/api/users/{userId}")
   public void deleteUser(@PathVariable("userId") Integer id) {
+    historyService.createHistoryAction(new HistoryAction(id, "deleted"));
     userRepository.deleteById(id);
   }
 

@@ -1,5 +1,6 @@
 package com.example.finalprojectdeploy.services;
 
+import com.example.finalprojectdeploy.model.HistoryAction;
 import com.example.finalprojectdeploy.model.Review;
 import com.example.finalprojectdeploy.repositories.ReviewRepository;
 
@@ -20,6 +21,8 @@ public class ReviewService {
 
   @Autowired
   ReviewRepository reviewRepository;
+
+  HistoryService historyService = new HistoryService();
 
   //Basic Operations
 
@@ -51,11 +54,14 @@ public class ReviewService {
 
   @PostMapping("/api/reviews")
   public Review createReview(@RequestBody Review review) {
+    historyService.createHistoryAction(new HistoryAction(review.getUserId(), "reviewed", review.getIssueId()));
     return reviewRepository.save(review);
   }
 
   @DeleteMapping("/api/reviews/{reviewId}")
   public void deleteReview(@PathVariable("reviewId") Integer id) {
+    Review beingDeleted = reviewRepository.findReviewById(id);
+    historyService.createHistoryAction(new HistoryAction(beingDeleted.getIssueId(), "review deleted by"));
     reviewRepository.deleteById(id);
   }
 }

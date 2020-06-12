@@ -1,6 +1,7 @@
 package com.example.finalprojectdeploy.services;
 
 import com.example.finalprojectdeploy.model.ComicBook;
+import com.example.finalprojectdeploy.model.HistoryAction;
 import com.example.finalprojectdeploy.repositories.ComicBookRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class ComicBookService {
   @Autowired
   ComicBookRepository comicBookRepository;
 
+  HistoryService historyService = new HistoryService();
+
   //needs updating
   @GetMapping("/api/users/{userId}/collection")
   public List<ComicBook> findComicBooksForUserSortedSearch(@PathVariable("userId") Integer id, @RequestParam(defaultValue = "") String sort,
@@ -39,12 +42,14 @@ public class ComicBookService {
 
   @PostMapping("/api/comic-books")
   public ComicBook createComicBook(@RequestBody ComicBook comicBook) {
+    historyService.createHistoryAction(new HistoryAction(comicBook.getUserId(), "added", comicBook.getIssueId()));
     return comicBookRepository.save(comicBook);
   }
 
   //Updates the comic book's grade (nothing else)
   @PutMapping("/api/comic-books/{comicBookId}")
   public ComicBook updateComicBook(@PathVariable("comicBookId") Integer id, @RequestBody ComicBook updatedComicBook) {
+    historyService.createHistoryAction(new HistoryAction(updatedComicBook.getUserId(), "updated", updatedComicBook.getIssueId()));
     ComicBook comicBook = comicBookRepository.findById(id).get();
     comicBook.updateComicBook(updatedComicBook);
     return comicBookRepository.save(comicBook);
@@ -52,6 +57,8 @@ public class ComicBookService {
 
   @DeleteMapping("/api/comic-books/{comicBookId}")
   public void deleteComicBook(@PathVariable("comicBookId") Integer id) {
+    ComicBook beingDeleted = comicBookRepository.findComicBookById(id);
+    historyService.createHistoryAction(new HistoryAction(beingDeleted.getUserId(), "removed", beingDeleted.getIssueId()));
     comicBookRepository.deleteById(id);
   }
 

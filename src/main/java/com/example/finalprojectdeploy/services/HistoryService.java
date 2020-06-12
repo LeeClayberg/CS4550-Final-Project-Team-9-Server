@@ -5,8 +5,6 @@ import com.example.finalprojectdeploy.repositories.HistoryRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -21,8 +19,7 @@ public class HistoryService {
     return history.size() > 20 ? history.subList(0, 20) : history;
   }
 
-  @PostMapping("/api/history")
-  public HistoryAction createHistoryAction(@RequestBody HistoryAction action) {
+  public HistoryAction createHistoryAction(HistoryAction action) {
     return historyRepository.save(action);
   }
 }

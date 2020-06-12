@@ -25,6 +25,12 @@ public class HistoryAction {
     this.timestamp = java.time.LocalDateTime.now().toString();
   }
 
+  public HistoryAction(int userId, String action) {
+    this.userId = userId;
+    this.action = action;
+    this.timestamp = java.time.LocalDateTime.now().toString();
+  }
+
   public HistoryAction() {
     this.timestamp = java.time.LocalDateTime.now().toString();
   }
