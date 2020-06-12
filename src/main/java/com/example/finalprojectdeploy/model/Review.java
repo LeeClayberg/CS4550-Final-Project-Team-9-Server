@@ -99,12 +99,4 @@ public class Review {
   public void setTimestamp(String timestamp) {
     this.timestamp = timestamp;
   }
-
-  public static class DateAddedComparator implements Comparator<Review>
-  {
-    public int compare(Review a, Review b)
-    {
-      return b.timestamp.compareTo(a.timestamp);
-    }
-  }
 }
