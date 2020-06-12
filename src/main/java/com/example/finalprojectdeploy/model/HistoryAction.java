@@ -18,14 +18,15 @@ public class HistoryAction {
   private int issueId;
   private String timestamp;
 
-  public HistoryAction(int userId, String action, int issueId, String timestamp) {
+  public HistoryAction(int userId, String action, int issueId) {
     this.userId = userId;
     this.action = action;
     this.issueId = issueId;
-    this.timestamp = timestamp;
+    this.timestamp = java.time.LocalDateTime.now().toString();
   }
 
   public HistoryAction() {
+    this.timestamp = java.time.LocalDateTime.now().toString();
   }
 
   public int getId() {
