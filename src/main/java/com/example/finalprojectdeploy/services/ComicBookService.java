@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -27,7 +29,7 @@ public class ComicBookService {
   @GetMapping("/api/users/{userId}/collection")
   public List<ComicBook> findComicBooksForUserSortedSearch(@PathVariable("userId") Integer id, @RequestParam(defaultValue = "") String sort,
                                                            @RequestParam(defaultValue = "") String resource, @RequestParam(defaultValue = "") String query) {
-    return comicBookRepository.findCollectionForUser(id);
+    return this.getComicBooksAdvanced(comicBookRepository.findCollectionForUser(id), sort, resource, query);
   }
 
   @GetMapping("/api/comic-books/{comicBookId}")
@@ -53,21 +55,21 @@ public class ComicBookService {
     comicBookRepository.deleteById(id);
   }
 
-  /*
-  public List<ComicBook> getComicBooksAdvanced(String sortBy, String resource, String query) {
+
+  private List<ComicBook> getComicBooksAdvanced(List<ComicBook> collection, String sortBy, String resource, String query) {
+    List<ComicBook> results = new ArrayList<>(collection);
     switch (sortBy) {
-      case "grade": Collections.sort(comicBooks, new ComicBook.GradeComparator());
+      case "grade": Collections.sort(results, new ComicBook.GradeComparator());
         break;
-      case "coverdate": Collections.sort(comicBooks, new ComicBook.CoverDateComparator());
+      case "coverdate": Collections.sort(results, new ComicBook.CoverDateComparator());
         break;
-      case "timestamp": Collections.sort(comicBooks, new ComicBook.DateAddedComparator());
+      case "timestamp": Collections.sort(results, new ComicBook.DateAddedComparator());
         break;
-      case "title": Collections.sort(comicBooks, new ComicBook.TitleComparator());
+      case "title": Collections.sort(results, new ComicBook.TitleComparator());
         break;
-      case "volume": Collections.sort(comicBooks, new ComicBook.VolumeComparator());
+      case "volume": Collections.sort(results, new ComicBook.VolumeComparator());
         break;
     }
-    List<ComicBook> results = new ArrayList<>(this.comicBooks);
     switch (resource) {
       case "title": results.removeIf(comicBook -> !comicBook.getTitle().toLowerCase().contains(query.toLowerCase()));
         break;
@@ -78,5 +80,5 @@ public class ComicBookService {
     }
     return results;
   }
-   */
+
 }

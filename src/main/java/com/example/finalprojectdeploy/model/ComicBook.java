@@ -135,7 +135,7 @@ public class ComicBook {
 
   //Comparator
 
-  static class GradeComparator implements Comparator<ComicBook>
+  public static class GradeComparator implements Comparator<ComicBook>
   {
     public int compare(ComicBook a, ComicBook b)
     {
