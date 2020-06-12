@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface ComicBookRepository extends CrudRepository<ComicBook, Integer> {
 
-  @Query("SELECT comicBook FROM ComicBook comicBook WHERE user_id.id=:userId")
+  @Query("SELECT comicBook FROM ComicBook comicBook WHERE comicBook.userId=:userId")
   public List<ComicBook> findCollectionForUser(@Param("userId") Integer id);
 
   @Query("SELECT comicBook FROM ComicBook comicBook WHERE comicBook.id=:comicBookId")

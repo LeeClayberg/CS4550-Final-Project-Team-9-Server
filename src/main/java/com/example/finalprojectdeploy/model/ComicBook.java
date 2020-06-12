@@ -41,6 +41,10 @@ public class ComicBook {
   public ComicBook() {
   }
 
+  public void updateComicBook(ComicBook comicBook) {
+    this.grade = comicBook.grade;
+  }
+
   public int getId() {
     return id;
   }

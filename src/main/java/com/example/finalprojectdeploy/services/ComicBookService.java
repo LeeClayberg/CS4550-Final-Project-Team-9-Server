@@ -19,6 +19,7 @@ public class ComicBookService {
   @Autowired
   ComicBookRepository comicBookRepository;
 
+  //needs updating
   @GetMapping("/api/users/{userId}/collection")
   public List<ComicBook> findComicBooksForUserSortedSearch(@PathVariable("userId") Integer id, @RequestParam(defaultValue = "") String sort,
                                                            @RequestParam(defaultValue = "") String resource, @RequestParam(defaultValue = "") String query) {
@@ -35,16 +36,17 @@ public class ComicBookService {
     return comicBookRepository.save(comicBook);
   }
 
+  //Updates the comic book's grade (nothing else)
   @PutMapping("/api/comic-books/{comicBookId}")
-  public ComicBook updateComicBookGrade(@PathVariable("comicBookId") Integer id, @RequestBody ComicBook updatedComicBook) {
-    User user = userRepository.findById(id).get();
-    user.updateUser(newUser);
-    return userRepository.save(user);
+  public ComicBook updateComicBook(@PathVariable("comicBookId") Integer id, @RequestBody ComicBook updatedComicBook) {
+    ComicBook comicBook = comicBookRepository.findById(id).get();
+    comicBook.updateComicBook(updatedComicBook);
+    return comicBookRepository.save(comicBook);
   }
 
   @DeleteMapping("/api/comic-books/{comicBookId}")
-  public List<ComicBook> deleteComicBook(@PathVariable("comicBookId") Integer id) {
-    return null;
+  public void deleteComicBook(@PathVariable("comicBookId") Integer id) {
+    comicBookRepository.deleteById(id);
   }
 
   /*
