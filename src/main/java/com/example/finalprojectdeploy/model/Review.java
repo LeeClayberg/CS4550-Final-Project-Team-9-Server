@@ -2,7 +2,18 @@ package com.example.finalprojectdeploy.model;
 
 import java.util.Comparator;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name="reviews")
 public class Review {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
   private int issueId;
   private int userId;
@@ -13,7 +24,6 @@ public class Review {
   private String timestamp;
 
   public Review(int issueId, int userId, String username, int stars, String text, String coverImageURL, String timestamp) {
-    this.id = (int)(Math.random() * 1000000);
     this.issueId = issueId;
     this.userId = userId;
     this.username = username;
@@ -24,7 +34,6 @@ public class Review {
   }
 
   public Review() {
-    this.id = (int)(Math.random() * 1000000);
   }
 
   public int getId() {

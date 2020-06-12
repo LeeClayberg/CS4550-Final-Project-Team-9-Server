@@ -1,7 +1,9 @@
 package com.example.finalprojectdeploy.services;
 
 import com.example.finalprojectdeploy.model.Review;
+import com.example.finalprojectdeploy.repositories.ReviewRepository;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,66 +12,50 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
 public class ReviewService {
-  List<Review> reviews = new ArrayList<Review>();
+
+  @Autowired
+  ReviewRepository reviewRepository;
 
   //Basic Operations
 
   @GetMapping("/api/reviews")
-  public List<Review> findAllUsers() {
-    return reviews;
+  public List<Review> findAllReviews() {
+    return reviewRepository.findAllReviews();
   }
 
   @GetMapping("/api/reviews/{reviewId}")
   public Review findReviewById(@PathVariable("reviewId") Integer id) {
-    for(Review review: reviews) {
-      if(review.getId() == id) {
-        return review;
-      }
-    }
-    return null;
+    return reviewRepository.findReviewById(id);
   }
 
   @GetMapping("/api/users/{userId}/reviews")
   public List<Review> findReviewsForUser(@PathVariable("userId") Integer id) {
-    List<Review> results = new ArrayList<>(reviews);
-    results.removeIf(Review -> Review.getUserId() != id);
-    return results;
+    return reviewRepository.findReviewsForUser(id);
   }
 
   @GetMapping("/api/issues/{issueId}/reviews")
   public List<Review> findReviewsForIssue(@PathVariable("issueId") Integer id) {
-    List<Review> results = new ArrayList<>(reviews);
-    results.removeIf(Review -> Review.getIssueId() != id);
-    return results;
+    return reviewRepository.findReviewsForIssue(id);
   }
 
   @GetMapping("/api/reviews/recent")
   public List<Review> findRecentReviews() {
-    Collections.sort(reviews, new Review.DateAddedComparator());
+    List<Review> reviews = reviewRepository.findRecentReviews();
     return reviews.size() > 4 ? reviews.subList(0, 4) : reviews;
   }
 
   @PostMapping("/api/reviews")
   public Review createReview(@RequestBody Review review) {
-    reviews.add(0, review);
-    return review;
+    return reviewRepository.save(review);
   }
 
   @DeleteMapping("/api/reviews/{reviewId}")
-  public List<Review> deleteReview(@PathVariable("reviewId") Integer id) {
-    for(Review review: reviews) {
-      if(review.getId() == id) {
-        reviews.remove(review);
-        break;
-      }
-    }
-    return reviews;
+  public void deleteReview(@PathVariable("reviewId") Integer id) {
+    reviewRepository.deleteById(id);
   }
 }
