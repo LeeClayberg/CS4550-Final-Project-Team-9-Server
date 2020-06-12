@@ -1,8 +1,9 @@
 package com.example.finalprojectdeploy.services;
 
-import com.example.finalprojectdeploy.model.ComicBook;
 import com.example.finalprojectdeploy.model.User;
+import com.example.finalprojectdeploy.repositories.UserRepository;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,17 +11,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.websocket.server.PathParam;
-
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 public class UserService {
+
+  @Autowired
+  UserRepository userRepository;
+
   User user1 = new User("leeclayberg", "clayberg123", "admin", "2020-06-06");
   User user2 = new User("jeffbarner", "barns14", "collector", "2020-06-07");
   User user3 = new User("johnwigner", "wigner234", "collector", "2020-06-08");
@@ -38,7 +40,7 @@ public class UserService {
 
   @GetMapping("/api/users")
   public List<User> findAllUsers() {
-    return users;
+    return userRepository.findAllUsers();
   }
 
   @GetMapping("/api/users/{userId}")
@@ -95,59 +97,6 @@ public class UserService {
   }
 
   //Comic Books Collection
-
-  @GetMapping("/api/users/{userId}/collection")
-  public List<ComicBook> findComicBooksForUserSortedSearch(@PathVariable("userId") Integer id, @RequestParam(defaultValue = "") String sort,
-                                                           @RequestParam(defaultValue = "") String resource, @RequestParam(defaultValue = "") String query) {
-    for(User user: users) {
-      if(user.getId() == id) {
-        return user.getComicBooksAdvanced(sort, resource, query);
-      }
-    }
-    return null;
-  }
-
-  @GetMapping("/api/users/{userId}/collection/{comicBookId}")
-  public ComicBook findComicBookById(@PathVariable("userId") Integer userId, @PathVariable("comicBookId") Integer id) {
-    for(User user: users) {
-      if (user.getId() == userId) {
-        for (ComicBook comicBook : user.getComicBooks()) {
-          if (comicBook.getId() == id) {
-            return comicBook;
-          }
-        }
-      }
-    }
-    return null;
-  }
-
-  @PostMapping("/api/users/{userId}/collection")
-  public ComicBook createComicBook(@PathVariable("userId") Integer userId, @RequestBody ComicBook comicBook) {
-    for(User user: users) {
-      if (user.getId() == userId) {
-        user.addComicBook(comicBook);
-        history.add(0, userId + " -- added -- " + comicBook.getId());
-        return comicBook;
-      }
-    }
-    return null;
-  }
-
-  @DeleteMapping("/api/users/{userId}/collection/{comicBookId}")
-  public List<ComicBook> deleteComicBook(@PathVariable("userId") Integer userId, @PathVariable("comicBookId") Integer id) {
-    for (User user : users) {
-      if (user.getId() == userId) {
-        for (ComicBook comicBook : user.getComicBooks()) {
-          if (comicBook.getId() == id) {
-            user.removeComicBook(comicBook);
-            history.add(0, userId + " -- removed -- " + id);
-            return user.getComicBooks();
-          }
-        }
-      }
-    }
-    return null;
-  }
 
   @GetMapping("/api/users/history")
   public List<String> findUserHistory() {

@@ -1,10 +1,16 @@
 package com.example.finalprojectdeploy.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="users")
 public class User {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
   private String username;
   private String password;
@@ -20,7 +26,6 @@ public class User {
   private String pictureURL;
   private String role;
   private String startDate;
-  private List<ComicBook> comicBooks;
 
   public User(int id, String username, String password, String first, String last, String email, String dob, String address, String city, String state, String zip, String bio, String role, String startDate) {
     this.id = id;
@@ -38,7 +43,6 @@ public class User {
     this.pictureURL = "https://lakewangaryschool.sa.edu.au/wp-content/uploads/2017/11/placeholder-profile-sq.jpg";
     this.role = role;
     this.startDate = startDate;
-    this.comicBooks = new ArrayList<ComicBook>();
   }
 
   public User(String password, String first, String last, String email, String dob, String address, String city, String state, String zip, String bio) {
@@ -54,7 +58,6 @@ public class User {
     this.zip = zip;
     this.bio = bio;
     this.pictureURL = "https://lakewangaryschool.sa.edu.au/wp-content/uploads/2017/11/placeholder-profile-sq.jpg";
-    this.comicBooks = new ArrayList<ComicBook>();
   }
 
   public User(String username, String password, String role, String startDate) {
@@ -64,13 +67,11 @@ public class User {
     this.role = role;
     this.startDate = startDate;
     this.pictureURL = "https://lakewangaryschool.sa.edu.au/wp-content/uploads/2017/11/placeholder-profile-sq.jpg";
-    this.comicBooks = new ArrayList<ComicBook>();
   }
 
   public User() {
     this.id = (int)(Math.random() * 1000000);
     this.pictureURL = "https://lakewangaryschool.sa.edu.au/wp-content/uploads/2017/11/placeholder-profile-sq.jpg";
-    this.comicBooks = new ArrayList<ComicBook>();
   }
 
   public void updateUser(User newUser) {
@@ -206,48 +207,5 @@ public class User {
 
   public void setStartDate(String startDate) {
     this.startDate = startDate;
-  }
-
-  public List<ComicBook> getComicBooks() {
-    return comicBooks;
-  }
-
-  public void setComicBooks(List<ComicBook> comicBooks) {
-    this.comicBooks = comicBooks;
-  }
-
-  //Extra Methods
-
-  public void addComicBook(ComicBook comicBook) {
-    this.comicBooks.add(comicBook);
-  }
-
-  public void removeComicBook(ComicBook comicBook) {
-    this.comicBooks.remove(comicBook);
-  }
-
-  public List<ComicBook> getComicBooksAdvanced(String sortBy, String resource, String query) {
-    switch (sortBy) {
-      case "grade": Collections.sort(comicBooks, new ComicBook.GradeComparator());
-        break;
-      case "coverdate": Collections.sort(comicBooks, new ComicBook.CoverDateComparator());
-        break;
-      case "timestamp": Collections.sort(comicBooks, new ComicBook.DateAddedComparator());
-        break;
-      case "title": Collections.sort(comicBooks, new ComicBook.TitleComparator());
-        break;
-      case "volume": Collections.sort(comicBooks, new ComicBook.VolumeComparator());
-        break;
-    }
-    List<ComicBook> results = new ArrayList<>(this.comicBooks);
-    switch (resource) {
-      case "title": results.removeIf(comicBook -> !comicBook.getTitle().toLowerCase().contains(query.toLowerCase()));
-        break;
-      case "volume": results.removeIf(comicBook -> !comicBook.getVolume().toLowerCase().contains(query.toLowerCase()));
-        break;
-      case "character": results.removeIf(comicBook -> !comicBook.getCharacters().toLowerCase().contains(query.toLowerCase()));
-        break;
-    }
-    return results;
   }
 }
