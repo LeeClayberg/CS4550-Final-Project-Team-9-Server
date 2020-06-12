@@ -25,7 +25,7 @@ public class ComicBookService {
 
   @Autowired
   ComicBookRepository comicBookRepository;
-
+  @Autowired
   HistoryService historyService = new HistoryService();
 
   //needs updating

@@ -25,6 +25,7 @@ public class UserService {
   @Autowired
   UserRepository userRepository;
 
+  @Autowired
   HistoryService historyService = new HistoryService();
 
   //Basic Operations
@@ -41,8 +42,9 @@ public class UserService {
 
   @PostMapping("/api/users")
   public User createUser(@RequestBody User user) {
-    historyService.createHistoryAction(new HistoryAction(user.getId(), "created"));
-    return userRepository.save(user);
+    User newUser = userRepository.save(user);
+    historyService.createHistoryAction(new HistoryAction(newUser.getId(), "created"));
+    return newUser;
   }
 
   @PutMapping("/api/users/{userId}")
@@ -64,14 +66,5 @@ public class UserService {
   @GetMapping("/api/users/login/{username}/{password}")
   public User findUserById(@PathVariable("username") String username, @PathVariable("password") String password) {
     return userRepository.userLogin(username, password);
-  }
-
-
-
-  //History (come back to)
-
-  @GetMapping("/api/users/history")
-  public List<String> findUserHistory() {
-    return new ArrayList<>();
   }
 }

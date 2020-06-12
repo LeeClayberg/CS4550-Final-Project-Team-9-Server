@@ -21,7 +21,7 @@ public class ReviewService {
 
   @Autowired
   ReviewRepository reviewRepository;
-
+  @Autowired
   HistoryService historyService = new HistoryService();
 
   //Basic Operations
@@ -61,7 +61,7 @@ public class ReviewService {
   @DeleteMapping("/api/reviews/{reviewId}")
   public void deleteReview(@PathVariable("reviewId") Integer id) {
     Review beingDeleted = reviewRepository.findReviewById(id);
-    historyService.createHistoryAction(new HistoryAction(beingDeleted.getIssueId(), "review deleted by"));
+    historyService.createHistoryAction(new HistoryAction("review deleted", beingDeleted.getIssueId()));
     reviewRepository.deleteById(id);
   }
 }
