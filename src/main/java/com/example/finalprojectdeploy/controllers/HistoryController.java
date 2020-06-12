@@ -1,7 +1,7 @@
 package com.example.finalprojectdeploy.controllers;
 
 import com.example.finalprojectdeploy.model.HistoryAction;
-import com.example.finalprojectdeploy.repositories.HistoryRepository;
+import com.example.finalprojectdeploy.services.HistoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,15 +15,10 @@ import java.util.List;
 public class HistoryController {
 
   @Autowired
-  HistoryRepository historyRepository;
+  HistoryService historyService;
 
   @GetMapping("/api/history/recent")
   public List<HistoryAction> findRecentHistory() {
-    List<HistoryAction> history = historyRepository.findRecentHistory();
-    return history.size() > 20 ? history.subList(0, 20) : history;
-  }
-
-  public HistoryAction createHistoryAction(HistoryAction action) {
-    return historyRepository.save(action);
+    return historyService.findRecentHistory();
   }
 }
