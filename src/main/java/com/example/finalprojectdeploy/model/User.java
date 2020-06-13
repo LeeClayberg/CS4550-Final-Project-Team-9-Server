@@ -1,9 +1,14 @@
 package com.example.finalprojectdeploy.model;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
@@ -23,7 +28,8 @@ public class User {
   private String state;
   private String zip;
   private String bio;
-  private String pictureURL;
+  @Lob
+  private byte[] picture;
   private String role;
   private String startDate;
 
@@ -40,7 +46,7 @@ public class User {
     this.state = state;
     this.zip = zip;
     this.bio = bio;
-    this.pictureURL = "https://lakewangaryschool.sa.edu.au/wp-content/uploads/2017/11/placeholder-profile-sq.jpg";
+    this.picture = this.readFile("/Users/leeclayberg/Downloads/placeholder-profile-sq.jpg");
     this.role = role;
     this.startDate = startDate;
   }
@@ -56,7 +62,7 @@ public class User {
     this.state = state;
     this.zip = zip;
     this.bio = bio;
-    this.pictureURL = "https://lakewangaryschool.sa.edu.au/wp-content/uploads/2017/11/placeholder-profile-sq.jpg";
+    this.picture = this.readFile("/Users/leeclayberg/Downloads/placeholder-profile-sq.jpg");
   }
 
   public User(String username, String password, String role, String startDate) {
@@ -64,11 +70,11 @@ public class User {
     this.password = password;
     this.role = role;
     this.startDate = startDate;
-    this.pictureURL = "https://lakewangaryschool.sa.edu.au/wp-content/uploads/2017/11/placeholder-profile-sq.jpg";
+    this.picture = this.readFile("/Users/leeclayberg/Downloads/placeholder-profile-sq.jpg");
   }
 
   public User() {
-    this.pictureURL = "https://lakewangaryschool.sa.edu.au/wp-content/uploads/2017/11/placeholder-profile-sq.jpg";
+    this.picture = this.readFile("/Users/leeclayberg/Downloads/placeholder-profile-sq.jpg");
   }
 
   public void updateUser(User newUser) {
@@ -82,7 +88,7 @@ public class User {
     this.state = newUser.state;
     this.zip = newUser.zip;
     this.bio = newUser.bio;
-    this.pictureURL = newUser.pictureURL;
+    this.picture = newUser.picture;
     this.role = newUser.role;
   }
 
@@ -182,12 +188,12 @@ public class User {
     this.bio = bio;
   }
 
-  public String getPictureURL() {
-    return pictureURL;
+  public byte[] getPicture() {
+    return picture;
   }
 
-  public void setPictureURL(String pictureURL) {
-    this.pictureURL = pictureURL;
+  public void setPicture(byte[] picture) {
+    this.picture = picture;
   }
 
   public String getRole() {
@@ -204,5 +210,14 @@ public class User {
 
   public void setStartDate(String startDate) {
     this.startDate = startDate;
+  }
+
+  private byte[] readFile (String path) {
+    try {
+      return Files.readAllBytes(Paths.get(path));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return null;
   }
 }
