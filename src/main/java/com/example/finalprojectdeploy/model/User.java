@@ -62,7 +62,7 @@ public class User {
     this.state = state;
     this.zip = zip;
     this.bio = bio;
-    this.picture = this.readFile("/Users/leeclayberg/Downloads/placeholder-profile-sq.jpg");
+    this.picture = this.readFile("file:///Users/leeclayberg/Downloads/placeholder-profile-sq.jpg");
   }
 
   public User(String username, String password, String role, String startDate) {
