@@ -27,7 +27,7 @@ public class User {
   private String role;
   private String startDate;
 
-  public User(int id, String username, String password, String first, String last, String email, String dob, String address, String city, String state, String zip, String bio, String role, String startDate) {
+  public User(int id, String username, String password, String first, String last, String email, String dob, String address, String city, String state, String zip, String bio, String startDate) {
     this.id = id;
     this.username = username;
     this.password = password;
@@ -41,7 +41,7 @@ public class User {
     this.zip = zip;
     this.bio = bio;
     this.pictureURL = "https://lakewangaryschool.sa.edu.au/wp-content/uploads/2017/11/placeholder-profile-sq.jpg";
-    this.role = role;
+    this.role = "collector";
     this.startDate = startDate;
   }
 
@@ -56,18 +56,20 @@ public class User {
     this.state = state;
     this.zip = zip;
     this.bio = bio;
+    this.role = "collector";
     this.pictureURL = "https://lakewangaryschool.sa.edu.au/wp-content/uploads/2017/11/placeholder-profile-sq.jpg";
   }
 
-  public User(String username, String password, String role, String startDate) {
+  public User(String username, String password, String startDate) {
     this.username = username;
     this.password = password;
-    this.role = role;
+    this.role = "collector";
     this.startDate = startDate;
     this.pictureURL = "https://lakewangaryschool.sa.edu.au/wp-content/uploads/2017/11/placeholder-profile-sq.jpg";
   }
 
   public User() {
+    this.role = "collector";
     this.pictureURL = "https://lakewangaryschool.sa.edu.au/wp-content/uploads/2017/11/placeholder-profile-sq.jpg";
   }
 
